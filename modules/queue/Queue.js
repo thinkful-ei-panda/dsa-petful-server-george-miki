@@ -17,7 +17,6 @@ class Queue {
 
         if(this.first === null) {
             this.first = newNode;
-            // this.last = this.first;
         };
 
         if(this.last) {
@@ -30,7 +29,6 @@ class Queue {
     dequeue() {
         // Remove some data from the queue.
         if(this.first === null) {
-            // throw new Error('No data in queue');
             return;
         };
         const tempNode = this.first;
@@ -40,7 +38,7 @@ class Queue {
             this.last = null;
         };
 
-        return tempNode.value;
+        return tempNode.data;
     };
 
     show() {
@@ -61,8 +59,8 @@ class Queue {
         let currentNode = this.first;
         let queue = [];
 
-        while(currentNode.next !== null) {
-            queue.push(currentNode);
+        while(currentNode !== null) {
+            queue.push(currentNode.data);
             currentNode = currentNode.next;
         };
 

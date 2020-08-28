@@ -6,7 +6,7 @@ const store = require('../../store');
 
 const pets = {
   cats: new Queue(),
-  dogs: new Queue()
+  dogs: new Queue(),
 };
 
 store.cats.forEach(cat => pets.cats.enqueue(cat));
@@ -19,14 +19,14 @@ module.exports = {
     return {
         cats: pets.cats.all(),
         dogs: pets.dogs.all(),
-    }
+    };
   },
 
   dequeue(type) {
     // Remove a pet from the queue.
     if(type === 'cats') {
         return pets.cats.dequeue();
-    }
+    };
 
     return pets.dogs.dequeue();
   },
