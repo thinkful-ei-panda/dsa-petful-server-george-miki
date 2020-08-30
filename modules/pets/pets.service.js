@@ -28,6 +28,15 @@ module.exports = {
         return pets.cats.dequeue();
     };
 
-    return pets.dogs.dequeue();
+    if(type === 'dogs') {
+        return pets.dogs.dequeue();
+    };
+    
+    if(type ===  'all') {
+        return {
+            cats: pets.cats.dequeue(),
+            dogs: pets.dogs.dequeue(),
+        }
+    };
   },
 };

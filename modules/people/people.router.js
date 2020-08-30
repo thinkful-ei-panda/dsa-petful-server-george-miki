@@ -8,20 +8,20 @@ const router = express.Router();
 router.get('/', (req, res) => {
     try {
         const fosterParents = People.get(); // Returns an array of people
-        res.json(fosterParents);
+        return res.json(fosterParents);
     }
     catch(error) {
-        res.status(400).json({error: error.message});
+        return res.status(400).json({error: error.message});
     };
 });
 
 router.post('/', json, (req, res) => {
   // Add a new person to the queue.
-  const { newFosterParentName } = req.body;
+  const { newFosterParent } = req.body;
 
-  People.enqueue(newFosterParentName);
+  People.enqueue(newFosterParent);
 
-  res.status(201).json({message: 'Successfully added'});
+  return res.status(201).json({message: 'Successfully added'});
 
 });
 
