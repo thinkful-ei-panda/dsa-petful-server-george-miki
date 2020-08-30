@@ -29,8 +29,9 @@ class Queue {
     dequeue() {
         // Remove some data from the queue.
         if(this.first === null) {
-            return;
+            return null;
         };
+        
         const tempNode = this.first;
         this.first = tempNode.next;
 

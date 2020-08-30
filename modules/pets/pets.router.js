@@ -21,12 +21,56 @@ router.delete('/', json, (req, res) => {
     // Remove a pet from adoption.
     const { type } = req.body;
 
-    const adopted = {
-        adopted: Pets.dequeue(type),
-        fosterParent: People.dequeue(),
+    const fosterParent = People.dequeue();
+
+    if (fosterParent == null) {
+        return res.status(400).json({error: 'No foster parents in queue'});
     };
 
-    res.json(adopted);
+    if(type === 'cats') {
+        let cats = Pets.dequeue(type);
+        if (cats == null) {
+            return res.status(400).json({error: 'No cats in queue'});
+        };
+        const adopted = {
+            adopted: cats,
+            fosterParent,
+        };
+        return res.json(adopted);
+    };
+
+    if(type === 'dogs') {
+        let dogs = Pets.dequeue(type);
+        if (dogs == null) {
+            return res.status(400).json({error: 'No dogs in queue'});
+        };
+        const adopted = {
+            adopted: dogs,
+            fosterParent,
+        };
+        return res.json(adopted);
+    };
+
+    if(type === 'all') {
+        const { cats, dogs } = Pets.dequeue(type);
+        if (cats == null) {
+            return res.status(400).json({error: 'No cats in queue'});
+        };
+
+        if (dogs == null) {
+            return res.status(400).json({error: 'No dogs in queue'});
+        };
+
+        const adopted = {
+            adopted: {
+                cats,
+                dogs
+            },
+            fosterParent,
+        };
+
+        return res.json(adopted);
+    };
 });
 
 module.exports = router;

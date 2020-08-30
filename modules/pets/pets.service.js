@@ -25,17 +25,37 @@ module.exports = {
   dequeue(type) {
     // Remove a pet from the queue.
     if(type === 'cats') {
-        return pets.cats.dequeue();
+        let cats = pets.cats.dequeue();
+        if(!cats) {
+            store.cats.forEach(cat => pets.cats.enqueue(cat));
+            cats = pets.cats.dequeue();
+        };
+        return cats;
     };
 
     if(type === 'dogs') {
-        return pets.dogs.dequeue();
+        let dogs = pets.dogs.dequeue();
+        if(!dogs) {
+            store.dogs.forEach(dog => pets.dogs.enqueue(dog));
+            dogs = pets.dogs.dequeue();
+        };
+        return dogs;
     };
     
     if(type ===  'all') {
+        let cats = pets.cats.dequeue();
+        let dogs = pets.dogs.dequeue();
+        if(!cats) {
+            store.cats.forEach(cat => pets.cats.enqueue(cat));
+            cats = pets.cats.dequeue();
+        };
+        if(!dogs) {
+            store.dogs.forEach(dog => pets.dogs.enqueue(dog));
+            dogs = pets.dogs.dequeue();
+        };
         return {
-            cats: pets.cats.dequeue(),
-            dogs: pets.dogs.dequeue(),
+            cats,
+            dogs,
         }
     };
   },
