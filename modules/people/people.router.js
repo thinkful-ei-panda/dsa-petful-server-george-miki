@@ -6,13 +6,8 @@ const People = require('./people.service');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    try {
-        const fosterParents = People.get(); // Returns an array of people
-        return res.json(fosterParents);
-    }
-    catch(error) {
-        return res.status(400).json({error: error.message});
-    };
+    const fosterParents = People.get(); // Returns an array of people
+    return res.json(fosterParents);
 });
 
 router.post('/', json, (req, res) => {
